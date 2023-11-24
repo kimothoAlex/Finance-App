@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import authRoute from "./routes/auth.route.js";
 import expenseRoute from "./routes/expense.route.js";
+import incomeRoute from "./routes/income.route.js";
 import cookieParser from "cookie-parser";
 const app = express();
 
@@ -25,6 +26,7 @@ app.listen(3000, () => {
 
 app.use("/api/auth", authRoute);
 app.use("/api/expense", expenseRoute);
+app.use("/api/income", incomeRoute);
 
 app.use((err, req, res, next) => {
   const statusCode = err.statusCode || 500;
