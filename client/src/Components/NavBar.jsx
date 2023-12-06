@@ -11,7 +11,10 @@ const NavBar = () => {
         <Link to={"/"}>
           <h1 className="text-sm sm:text-xl font-bold flex flex-wrap">
             <span className="text-blue-800">
-              {currentUser ? currentUser.username : " Your"}
+              {currentUser
+                ? currentUser.username[0].toUpperCase() +
+                  currentUser.username.slice(1)
+                : " Your"}
             </span>{" "}
             <span className="text-blue-950">Finances</span>
           </h1>
