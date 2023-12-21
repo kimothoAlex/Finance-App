@@ -11,6 +11,9 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import {
+  deleteFailure,
+  deleteStart,
+  deleteSuccess,
   signOutFailure,
   signOutStart,
   signOutSuccess,
@@ -26,7 +29,7 @@ const Profile = () => {
   const [filePerc, setFilePerc] = useState(0);
   const [success, setSuccess] = useState(false);
   const [fileUploadError, setFileUploadError] = useState(false);
-  const { currentUser } = useSelector((state) => state.user);
+  const { currentUser, error } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { enqueueSnackbar } = useSnackbar();
@@ -90,7 +93,7 @@ const Profile = () => {
       }
 
       dispatch(updateSuccess(data));
-      enqueueSnackbar("User updated successfully", { variant: "success" });
+      enqueueSnackbar("Profile updated successfully", { variant: "success" });
     } catch (error) {
       dispatch(updateFailure(error.message));
     }
@@ -110,6 +113,24 @@ const Profile = () => {
       dispatch(signOutSuccess(data));
     } catch (error) {
       dispatch(signOutFailure(error.message));
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      dispatch(deleteStart());
+      const res = await fetch(`/api/user/delete-User/${currentUser._id}`);
+      const data = await res.json();
+
+      if (data.success === false) {
+        dispatch(deleteFailure(data.message));
+        return;
+      }
+
+      dispatch(deleteSuccess());
+      enqueueSnackbar("Account deleted successfully", { variant: "success" });
+    } catch (error) {
+      dispatch(deleteFailure(error.message));
     }
   };
   return (
@@ -163,14 +184,22 @@ const Profile = () => {
         <button className="p-3 rounded-lg bg-blue-500 hover:bg-blue-700 text-white">
           Update Profile
         </button>
-
         <p
           onClick={handleSignOut}
           className="text-red-600 text-center cursor-pointer"
         >
           Sign out
         </p>
+        <p
+          onClick={handleDelete}
+          className="text-red-600 text-center cursor-pointer"
+        >
+          Delete Account
+        </p>
       </form>
+      <div className="mt-5">
+        {error && <p className="text-red-600 text-center">{error}</p>}
+      </div>
     </div>
   );
 };
