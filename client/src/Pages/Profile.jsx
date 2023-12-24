@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 import { app } from "../firebase";
@@ -196,6 +196,14 @@ const Profile = () => {
         >
           Delete Account
         </p>
+        <Link to={"/expenses"}>
+          <p className="text-blue-600 text-center cursor-pointer">
+            Add Expense
+          </p>
+        </Link>
+        <Link to={"/incomes"}>
+          <p className="text-blue-600 text-center cursor-pointer">Add Income</p>
+        </Link>
       </form>
       <div className="mt-5">
         {error && <p className="text-red-600 text-center">{error}</p>}

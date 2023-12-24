@@ -7,6 +7,8 @@ import Profile from "./Pages/Profile";
 import SideBar from "./Components/SideBar";
 import NavBar from "./Components/NavBar";
 import PrivateUser from "./Components/PrivateUser";
+import Expenses from "./Pages/Expenses";
+import Incomes from "./Pages/Incomes";
 const App = () => {
   return (
     <BrowserRouter>
@@ -17,6 +19,8 @@ const App = () => {
         <Route path="/sign-up" element={<SignUp />} />
         <Route element={<PrivateUser />}>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/expenses" element={<Expenses />} />
+          <Route path="/incomes" element={<Incomes />} />
         </Route>
       </Routes>
     </BrowserRouter>

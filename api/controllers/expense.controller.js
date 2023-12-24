@@ -4,7 +4,7 @@ export const addExpense = async (req, res, next) => {
   try {
     const newExpense = new Expense(req.body);
     await newExpense.save();
-    res.status(200).json("expense created successfully");
+    res.status(200).json("Expense created successfully");
   } catch (error) {
     next(error);
   }
