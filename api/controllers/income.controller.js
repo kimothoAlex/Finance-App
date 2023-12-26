@@ -12,7 +12,9 @@ export const addIncome = async (req, res, next) => {
 
 export const getIncome = async (req, res, next) => {
   try {
-    const incomes = await Income.find().sort({ createdAt: -1 });
+    const incomes = await Income.find({ userRef: req.params.id }).sort({
+      createdAt: -1,
+    });
     res.status(200).json(incomes);
   } catch (error) {
     next(error);

@@ -9,6 +9,6 @@ import {
 const route = express.Router();
 
 route.post("/add-income", verifyUser, addIncome);
-route.get("/get-Income", verifyUser, getIncome);
+route.get("/get-Income/:id", verifyUser, getIncome);
 route.delete("/delete-income/:id", verifyUser, deleteIncome);
 export default route;

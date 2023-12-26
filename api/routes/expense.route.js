@@ -9,6 +9,6 @@ import { verifyUser } from "../utils/verifyUser.js";
 const route = express.Router();
 
 route.post("/add-expense", verifyUser, addExpense);
-route.get("/get-expense", verifyUser, getExpense);
+route.get("/get-expense/:id", verifyUser, getExpense);
 route.delete("/delete-expense/:id", verifyUser, deleteExpense);
 export default route;

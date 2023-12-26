@@ -12,7 +12,9 @@ export const addExpense = async (req, res, next) => {
 
 export const getExpense = async (req, res, next) => {
   try {
-    const expenses = await Expense.find().sort({ createdAt: -1 });
+    const expenses = await Expense.find({ userRef: req.params.id }).sort({
+      createdAt: -1,
+    });
     res.status(200).json(expenses);
   } catch (error) {
     next(error);
