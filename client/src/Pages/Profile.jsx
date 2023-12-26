@@ -21,6 +21,7 @@ import {
   updateStart,
   updateSuccess,
 } from "../redux/user/user";
+import SideBar from "../Components/SideBar";
 
 const Profile = () => {
   const fileRef = useRef(null);
@@ -134,79 +135,86 @@ const Profile = () => {
     }
   };
   return (
-    <div className="max-w-lg p-6 mt-6 bg-slate-100 mx-auto border rounded-lg shadow-lg ">
-      <h1 className="text-3xl text-center my-7 font-semibold">Profile</h1>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4 ">
-        <input
-          type="file"
-          ref={fileRef}
-          accept="image/*"
-          hidden
-          onChange={(e) => setFile(e.target.files[0])}
-        />
-        <img
-          onClick={() => fileRef.current.click()}
-          className="w-24 h-24 self-center hover:cursor-pointer rounded-full"
-          src={formData.avatar || currentUser.avatar}
-          alt="user photo"
-        />
-        <p className="text-sm self-center">
-          {fileUploadError ? (
-            <span className="text-red-600">Error Uploading file</span>
-          ) : filePerc > 0 && filePerc < 100 ? (
-            <span className="text-slate-700">{`uploading ${filePerc}%`}</span>
-          ) : filePerc === 100 ? (
-            <span className="text-green-600">Image uploaded successfully</span>
-          ) : (
-            ""
-          )}
-        </p>
-        <input
-          type="text"
-          onChange={handleChange}
-          className="p-3 border rounded-lg"
-          defaultValue={
-            currentUser.username[0].toUpperCase() +
-            currentUser.username.slice(1)
-          }
-        />
-        <input
-          type="email"
-          className="p-3 border rounded-lg"
-          defaultValue={currentUser.email}
-        />
-        <input
-          type="password"
-          onChange={handleChange}
-          className="p-3 border rounded-lg"
-        />
-
-        <button className="p-3 rounded-lg bg-blue-500 hover:bg-blue-700 text-white">
-          Update Profile
-        </button>
-        <p
-          onClick={handleSignOut}
-          className="text-red-600 text-center cursor-pointer"
-        >
-          Sign out
-        </p>
-        <p
-          onClick={handleDelete}
-          className="text-red-600 text-center cursor-pointer"
-        >
-          Delete Account
-        </p>
-        <Link to={"/expenses"}>
-          <p className="text-blue-600 text-center cursor-pointer">
-            Add Expense
+    <div className="flex">
+      <SideBar />
+      <div className="w-96 p-6 mt-6 bg-[#B6FFFA] mx-auto border rounded-lg shadow-lg ">
+        <h1 className="text-3xl text-center my-7 font-semibold">Profile</h1>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4 ">
+          <input
+            type="file"
+            ref={fileRef}
+            accept="image/*"
+            hidden
+            onChange={(e) => setFile(e.target.files[0])}
+          />
+          <img
+            onClick={() => fileRef.current.click()}
+            className="w-24 h-24 self-center hover:cursor-pointer rounded-full"
+            src={formData.avatar || currentUser.avatar}
+            alt="user photo"
+          />
+          <p className="text-sm self-center">
+            {fileUploadError ? (
+              <span className="text-red-600">Error Uploading file</span>
+            ) : filePerc > 0 && filePerc < 100 ? (
+              <span className="text-slate-700">{`uploading ${filePerc}%`}</span>
+            ) : filePerc === 100 ? (
+              <span className="text-green-600">
+                Image uploaded successfully
+              </span>
+            ) : (
+              ""
+            )}
           </p>
-        </Link>
-        <Link to={"/incomes"}>
-          <p className="text-blue-600 text-center cursor-pointer">Add Income</p>
-        </Link>
-      </form>
-      <div className="mt-5">
-        {error && <p className="text-red-600 text-center">{error}</p>}
+          <input
+            type="text"
+            onChange={handleChange}
+            className="p-3 border rounded-lg"
+            defaultValue={
+              currentUser.username[0].toUpperCase() +
+              currentUser.username.slice(1)
+            }
+          />
+          <input
+            type="email"
+            className="p-3 border rounded-lg"
+            defaultValue={currentUser.email}
+          />
+          <input
+            type="password"
+            onChange={handleChange}
+            className="p-3 border rounded-lg"
+          />
+
+          <button className="p-3 rounded-lg bg-blue-500 hover:bg-blue-700 text-white">
+            Update Profile
+          </button>
+          <p
+            onClick={handleSignOut}
+            className="text-red-600 text-center cursor-pointer"
+          >
+            Sign out
+          </p>
+          <p
+            onClick={handleDelete}
+            className="text-red-600 text-center cursor-pointer"
+          >
+            Delete Account
+          </p>
+          <Link to={"/expenses"}>
+            <p className="text-blue-600 text-center cursor-pointer">
+              Add Expense
+            </p>
+          </Link>
+          <Link to={"/incomes"}>
+            <p className="text-blue-600 text-center cursor-pointer">
+              Add Income
+            </p>
+          </Link>
+        </form>
+        <div className="mt-5">
+          {error && <p className="text-red-600 text-center">{error}</p>}
+        </div>
       </div>
     </div>
   );
